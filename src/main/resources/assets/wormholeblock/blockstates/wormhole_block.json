@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "wormholeblock:block/wormhole_block"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "wormholeblock",
+  "version": "${version}",
+  "name": "WormholeBlock",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/wormholeblock/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.eatbun.wormholeblock.client.WormholeblockDataGenerator"
+    ],
+    "client": [
+      "org.eatbun.wormholeblock.client.WormholeblockClient"
+    ],
+    "main": [
+      "org.eatbun.wormholeblock.Wormholeblock"
+    ]
+  },
+  "mixins": [
+    "wormholeblock.mixins.json",
+    {
+      "config": "wormholeblock.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

@@ -1,0 +1,62 @@
+package org.eatbun.wormholeblock.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
+
+public class WormholeGravityBlock extends Block {
+
+    public WormholeGravityBlock(Settings settings) {
+        super(settings);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        world.scheduleBlockTick(pos, this, 20); // первый тик
+    }
+
+    @Override
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random) {
+
+
+        // при 10 блоках накладываю отравление
+        world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10), p -> true)
+                .forEach(player -> player.addStatusEffect(
+                        new StatusEffectInstance(
+                                StatusEffects.LEVITATION, //️ отравление
+                                60,                   // 3 секунды
+                                0                     // уровень
+                        )
+                ));
+
+
+        // при 5 блоках накладываю замедление
+        world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(5), p -> true)
+                .forEach(player -> player.addStatusEffect(
+                        new StatusEffectInstance(
+                                StatusEffects.SLOWNESS, // замедление
+                                60,                   // 3 секунды
+                                2                     // уровень
+                        )
+                ));
+
+
+        // при 3 блоках накладываю иссушение
+        world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(3), p -> true)
+                .forEach(player -> player.addStatusEffect(
+                        new StatusEffectInstance(
+                                StatusEffects.WITHER, // Иссушение
+                                60,                   // 3 секунды
+                                3                     // уровень
+                        )
+                ));
+
+        world.scheduleBlockTick(pos, this, 20); // повторять каждую секунду
+    }
+}
