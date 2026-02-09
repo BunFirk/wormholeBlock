@@ -6,6 +6,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
@@ -26,13 +28,23 @@ public class WormholeBlock extends Block {
 
         // при 10 блоках от разлома накладываю отравление 1 уровня
         world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10), p -> true)
-                .forEach(player -> player.addStatusEffect(
+                .forEach(player -> {
+                    player.addStatusEffect(
                         new StatusEffectInstance(
                                 StatusEffects.POISON, //️ отравление
                                 60,                   // 3 секунды
                                 0                     // уровень
-                        )
-                ));
+                        ));
+
+                    world.playSound( // звук
+                            null,
+                            BlockPos.ofFloored(player.getPos()),
+                            SoundEvents.ENTITY_WARDEN_ANGRY,
+                            SoundCategory.AMBIENT,
+                            1f,
+                            0f
+                    );
+                });
 
 
         // накладываю эффект тьма при 5 блоках
