@@ -10,6 +10,7 @@ public class Wormholeblock implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
         registerModBlocks(); // регистрация блоков
     }
 }

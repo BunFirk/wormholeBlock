@@ -19,8 +19,10 @@ public class blockRegister {
 
     // регистрация блоков
     public static final Block WORMHOLE_WITHER_BLOCK = registerBlock("wormhole_block", new WormholeBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).sounds(BlockSoundGroup.GLASS)));
-    public static final Block WORMHOLE_GRAVITY_BLOCK = registerBlock("wormhole_gravity_block", new WormholeGravityBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).sounds(BlockSoundGroup.GLASS)));
-    public static final Block WORMHOLE_INVENTORY_BLOCK = registerBlock("wormhole_inventory_block", new WormholeInventoryBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).sounds(BlockSoundGroup.GLASS)));
+    public static final Block WORMHOLE_GRAVITY_BLOCK = registerBlock("wormhole_gravity_block", new WormholeGravityBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).nonOpaque().sounds(BlockSoundGroup.GLASS)));
+    public static final Block WORMHOLE_INVENTORY_BLOCK = registerBlock("wormhole_inventory_block", new WormholeInventoryBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).nonOpaque().sounds(BlockSoundGroup.GLASS)));
+    //public static final Block WORMHOLE_SPAWN_BLOCK = registerBlock("wormhole_spawn_block", new WormholeInventoryBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).sounds(BlockSoundGroup.GLASS)));
+
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
